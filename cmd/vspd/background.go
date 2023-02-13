@@ -8,9 +8,9 @@ import (
 	"errors"
 	"strings"
 
-	"github.com/decred/slog"
 	"github.com/EXCCoin/vspd/database"
 	"github.com/EXCCoin/vspd/rpc"
+	"github.com/decred/slog"
 	"github.com/jrick/wsrpc/v2"
 )
 

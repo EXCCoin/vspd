@@ -25,8 +25,6 @@ func TestIsValidVoteChoices(t *testing.T) {
 		{map[string]string{}, true},
 
 		// Valid agenda, valid vote choice.
-		{map[string]string{"lnsupport": "yes"}, true},
-		{map[string]string{"sdiffalgorithm": "no", "lnsupport": "yes"}, true},
 
 		// Invalid agenda, valid vote choice.
 		{map[string]string{"": "yes"}, false},

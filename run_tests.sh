@@ -13,7 +13,7 @@ go version
 
 # Run tests on root module and all submodules.
 echo "==> test all modules"
-ROOTPKG="github.com/decred/vspd"
+ROOTPKG="github.com/EXCCoin/vspd"
 GORACE="halt_on_error=1" go test -race $ROOTPKG/...
 
 # Find submodules.

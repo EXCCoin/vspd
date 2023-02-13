@@ -8,10 +8,10 @@ import (
 	"context"
 	"fmt"
 
-	wallettypes "github.com/EXCCoin/exccwallet/v2/rpc/jsonrpc/types"
 	"github.com/EXCCoin/exccd/chaincfg/v3"
 	dcrdtypes "github.com/EXCCoin/exccd/rpc/jsonrpc/types/v3"
 	"github.com/EXCCoin/exccd/wire"
+	wallettypes "github.com/EXCCoin/exccwallet/v2/rpc/jsonrpc/types"
 	"github.com/decred/slog"
 )
 

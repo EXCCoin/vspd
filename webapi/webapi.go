@@ -18,10 +18,10 @@ import (
 	"time"
 
 	"github.com/EXCCoin/exccd/chaincfg/v3"
-	"github.com/decred/slog"
 	"github.com/EXCCoin/vspd/database"
 	"github.com/EXCCoin/vspd/rpc"
 	"github.com/EXCCoin/vspd/types"
+	"github.com/decred/slog"
 	"github.com/dustin/go-humanize"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/sessions"

@@ -8,8 +8,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/EXCCoin/exccwallet/v2/wallet/txrules"
 	"github.com/EXCCoin/exccd/dcrutil/v4"
+	"github.com/EXCCoin/exccwallet/v2/wallet/txrules"
 	"github.com/EXCCoin/vspd/database"
 	"github.com/EXCCoin/vspd/rpc"
 	"github.com/EXCCoin/vspd/types"

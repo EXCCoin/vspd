@@ -96,7 +96,7 @@ func (s *Server) payFee(c *gin.Context) {
 
 	// Validate VotingKey.
 	votingKey := request.VotingKey
-	votingWIF, err := dcrutil.DecodeWIF(votingKey, s.cfg.NetParams.PrivateKeyID)
+	votingWIF, err := dcrutil.DecodeWIF(votingKey)
 	if err != nil {
 		s.log.Warnf("%s: Failed to decode WIF (clientIP=%s, ticketHash=%s): %v",
 			funcName, c.ClientIP(), ticket.Hash, err)

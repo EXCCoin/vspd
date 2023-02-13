@@ -15,12 +15,12 @@ import (
 	"strings"
 	"time"
 
-	"github.com/EXCCoin/exccwallet/v2/wallet/txrules"
 	"github.com/EXCCoin/exccd/dcrutil/v4"
 	"github.com/EXCCoin/exccd/hdkeychain/v3"
-	"github.com/decred/slog"
+	"github.com/EXCCoin/exccwallet/v2/wallet/txrules"
 	"github.com/EXCCoin/vspd/database"
 	"github.com/EXCCoin/vspd/version"
+	"github.com/decred/slog"
 	flags "github.com/jessevdk/go-flags"
 )
 

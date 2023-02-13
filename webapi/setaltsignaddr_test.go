@@ -19,9 +19,9 @@ import (
 
 	"github.com/EXCCoin/exccd/chaincfg/v3"
 	dcrdtypes "github.com/EXCCoin/exccd/rpc/jsonrpc/types/v3"
-	"github.com/decred/slog"
 	"github.com/EXCCoin/vspd/database"
 	"github.com/EXCCoin/vspd/types"
+	"github.com/decred/slog"
 	"github.com/gin-gonic/gin"
 )
 
@@ -129,7 +129,7 @@ func (n *testNode) GetRawTransaction(txHash string) (*dcrdtypes.TxRawResult, err
 }
 
 func TestSetAltSignAddress(t *testing.T) {
-	const testAddr = "DsVoDXNQqyF3V83PJJ5zMdnB4pQuJHBAh15"
+	const testAddr = "22tvpZDn7JdAdZHRUass8eXYK3xzDp6YaVc8"
 	tests := []struct {
 		name                  string
 		dcrdClientErr         bool
@@ -169,7 +169,7 @@ func TestSetAltSignAddress(t *testing.T) {
 		wantCode: http.StatusBadRequest,
 	}, {
 		name:     "addr wrong type",
-		addr:     "DkM3ZigNyiwHrsXRjkDQ8t8tW6uKGW9g61qEkG3bMqQPQWYEf5X3J",
+		addr:     "Tsn4pQV6i5HQz53cWM8Y4HkqnmY2o7qm4bz",
 		wantCode: http.StatusBadRequest,
 	}, {
 		name: "getRawTransaction error from dcrd client",
