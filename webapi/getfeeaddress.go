@@ -8,11 +8,11 @@ import (
 	"sync"
 	"time"
 
-	"decred.org/dcrwallet/v2/wallet/txrules"
-	"github.com/decred/dcrd/dcrutil/v4"
-	"github.com/decred/vspd/database"
-	"github.com/decred/vspd/rpc"
-	"github.com/decred/vspd/types"
+	"github.com/EXCCoin/exccwallet/v2/wallet/txrules"
+	"github.com/EXCCoin/exccd/dcrutil/v4"
+	"github.com/EXCCoin/vspd/database"
+	"github.com/EXCCoin/vspd/rpc"
+	"github.com/EXCCoin/vspd/types"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 )

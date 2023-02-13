@@ -7,8 +7,8 @@ package webapi
 import (
 	"net/http"
 
-	"github.com/decred/vspd/database"
-	"github.com/decred/vspd/rpc"
+	"github.com/EXCCoin/vspd/database"
+	"github.com/EXCCoin/vspd/rpc"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/sessions"
 )

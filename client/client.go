@@ -12,9 +12,9 @@ import (
 	"net/http"
 	"net/http/httputil"
 
-	"github.com/decred/dcrd/txscript/v4/stdaddr"
+	"github.com/EXCCoin/exccd/txscript/v4/stdaddr"
 	"github.com/decred/slog"
-	"github.com/decred/vspd/types"
+	"github.com/EXCCoin/vspd/types"
 )
 
 type Client struct {

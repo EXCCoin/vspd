@@ -9,9 +9,9 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/decred/vspd/database"
-	"github.com/decred/vspd/rpc"
-	"github.com/decred/vspd/types"
+	"github.com/EXCCoin/vspd/database"
+	"github.com/EXCCoin/vspd/rpc"
+	"github.com/EXCCoin/vspd/types"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 )

@@ -17,7 +17,7 @@ import (
 	"time"
 
 	"github.com/decred/slog"
-	"github.com/decred/vspd/rpc"
+	"github.com/EXCCoin/vspd/rpc"
 	bolt "go.etcd.io/bbolt"
 )
 

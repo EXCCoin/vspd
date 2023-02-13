@@ -11,11 +11,11 @@ import (
 	"os"
 	"sort"
 
-	"github.com/decred/dcrd/chaincfg/v3"
+	"github.com/EXCCoin/exccd/chaincfg/v3"
 	"github.com/decred/slog"
 	"github.com/jessevdk/go-flags"
 
-	"github.com/decred/vspd/database"
+	"github.com/EXCCoin/vspd/database"
 )
 
 const (

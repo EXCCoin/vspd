@@ -1,3 +1,3 @@
-module github.com/decred/vspd/types
+module github.com/EXCCoin/vspd/types
 
 go 1.19

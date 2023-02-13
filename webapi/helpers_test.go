@@ -7,7 +7,7 @@ package webapi
 import (
 	"testing"
 
-	"github.com/decred/dcrd/chaincfg/v3"
+	"github.com/EXCCoin/exccd/chaincfg/v3"
 )
 
 func TestIsValidVoteChoices(t *testing.T) {

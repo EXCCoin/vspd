@@ -17,11 +17,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/decred/dcrd/chaincfg/v3"
-	dcrdtypes "github.com/decred/dcrd/rpc/jsonrpc/types/v3"
+	"github.com/EXCCoin/exccd/chaincfg/v3"
+	dcrdtypes "github.com/EXCCoin/exccd/rpc/jsonrpc/types/v3"
 	"github.com/decred/slog"
-	"github.com/decred/vspd/database"
-	"github.com/decred/vspd/types"
+	"github.com/EXCCoin/vspd/database"
+	"github.com/EXCCoin/vspd/types"
 	"github.com/gin-gonic/gin"
 )
 

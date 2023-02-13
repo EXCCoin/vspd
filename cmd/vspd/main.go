@@ -12,11 +12,11 @@ import (
 	"sync"
 	"time"
 
-	"github.com/decred/dcrd/wire"
-	"github.com/decred/vspd/database"
-	"github.com/decred/vspd/rpc"
-	"github.com/decred/vspd/version"
-	"github.com/decred/vspd/webapi"
+	"github.com/EXCCoin/exccd/wire"
+	"github.com/EXCCoin/vspd/database"
+	"github.com/EXCCoin/vspd/rpc"
+	"github.com/EXCCoin/vspd/version"
+	"github.com/EXCCoin/vspd/webapi"
 )
 
 // maxVoteChangeRecords defines how many vote change records will be stored for

@@ -15,12 +15,12 @@ import (
 	"strings"
 	"time"
 
-	"decred.org/dcrwallet/v2/wallet/txrules"
-	"github.com/decred/dcrd/dcrutil/v4"
-	"github.com/decred/dcrd/hdkeychain/v3"
+	"github.com/EXCCoin/exccwallet/v2/wallet/txrules"
+	"github.com/EXCCoin/exccd/dcrutil/v4"
+	"github.com/EXCCoin/exccd/hdkeychain/v3"
 	"github.com/decred/slog"
-	"github.com/decred/vspd/database"
-	"github.com/decred/vspd/version"
+	"github.com/EXCCoin/vspd/database"
+	"github.com/EXCCoin/vspd/version"
 	flags "github.com/jessevdk/go-flags"
 )
 

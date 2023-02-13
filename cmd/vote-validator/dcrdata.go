@@ -11,7 +11,7 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/decred/dcrd/rpc/jsonrpc/types/v3"
+	"github.com/EXCCoin/exccd/rpc/jsonrpc/types/v3"
 )
 
 type txns struct {

@@ -10,8 +10,8 @@ import (
 	"time"
 
 	"github.com/decred/slog"
-	"github.com/decred/vspd/database"
-	"github.com/decred/vspd/rpc"
+	"github.com/EXCCoin/vspd/database"
+	"github.com/EXCCoin/vspd/rpc"
 	"github.com/dustin/go-humanize"
 )
 
