@@ -89,7 +89,7 @@ func (w *WalletConnect) Clients() ([]*WalletRPC, []string) {
 
 		ver, exists := verMap["dcrwalletjsonrpcapi"]
 		if !exists {
-			w.log.Errorf("dcrwallet.Version response missing 'dcrwalletjsonrpcapi' (wallet=%s)",
+			w.log.Errorf("exccwallet.Version response missing 'dcrwalletjsonrpcapi' (wallet=%s)",
 				c.String())
 			failedConnections = append(failedConnections, connect.addr)
 			connect.Close()

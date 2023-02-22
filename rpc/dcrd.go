@@ -91,10 +91,10 @@ func (d *DcrdConnect) Client() (*DcrdRPC, string, error) {
 		return nil, d.client.addr, fmt.Errorf("dcrd version check failed: %w", err)
 	}
 
-	ver, exists := verMap["dcrdjsonrpcapi"]
+	ver, exists := verMap["exccdjsonrpcapi"]
 	if !exists {
 		d.client.Close()
-		return nil, d.client.addr, fmt.Errorf("dcrd version response missing 'dcrdjsonrpcapi'")
+		return nil, d.client.addr, fmt.Errorf("exccd version response missing 'exccdjsonrpcapi'")
 	}
 
 	sVer := semver{ver.Major, ver.Minor, ver.Patch}
