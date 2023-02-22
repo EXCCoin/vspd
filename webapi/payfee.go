@@ -30,7 +30,7 @@ func (s *Server) payFee(c *gin.Context) {
 	dcrdClient := c.MustGet(dcrdKey).(*rpc.DcrdRPC)
 	dcrdErr := c.MustGet(dcrdErrorKey)
 	if dcrdErr != nil {
-		s.log.Errorf("%s: Could not get dcrd client: %v", funcName, dcrdErr.(error))
+		s.log.Errorf("%s: Could not get exccd client: %v", funcName, dcrdErr.(error))
 		s.sendError(types.ErrInternalError, c)
 		return
 	}
@@ -67,7 +67,7 @@ func (s *Server) payFee(c *gin.Context) {
 	// Get ticket details.
 	rawTicket, err := dcrdClient.GetRawTransaction(ticket.Hash)
 	if err != nil {
-		s.log.Errorf("%s: dcrd.GetRawTransaction for ticket failed (ticketHash=%s): %v", funcName, ticket.Hash, err)
+		s.log.Errorf("%s: exccd.GetRawTransaction for ticket failed (ticketHash=%s): %v", funcName, ticket.Hash, err)
 		s.sendError(types.ErrInternalError, c)
 		return
 	}
@@ -257,7 +257,7 @@ func (s *Server) payFee(c *gin.Context) {
 	if ticket.Confirmed {
 		err = dcrdClient.SendRawTransaction(request.FeeTx)
 		if err != nil {
-			s.log.Errorf("%s: dcrd.SendRawTransaction for fee tx failed (ticketHash=%s): %v",
+			s.log.Errorf("%s: exccd.SendRawTransaction for fee tx failed (ticketHash=%s): %v",
 				funcName, ticket.Hash, err)
 
 			ticket.FeeTxStatus = database.FeeError

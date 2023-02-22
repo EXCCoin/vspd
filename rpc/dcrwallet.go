@@ -50,7 +50,7 @@ func (w *WalletConnect) Close() {
 	for _, client := range w.clients {
 		client.Close()
 	}
-	w.log.Debug("dcrwallet clients closed")
+	w.log.Debug("exccwallet clients closed")
 }
 
 // Clients loops over each wallet and tries to establish a connection. It
@@ -65,7 +65,7 @@ func (w *WalletConnect) Clients() ([]*WalletRPC, []string) {
 
 		c, newConnection, err := connect.dial(ctx)
 		if err != nil {
-			w.log.Errorf("dcrwallet dial error: %v", err)
+			w.log.Errorf("exccwallet dial error: %v", err)
 			failedConnections = append(failedConnections, connect.addr)
 			continue
 		}
@@ -81,15 +81,15 @@ func (w *WalletConnect) Clients() ([]*WalletRPC, []string) {
 		var verMap map[string]dcrdtypes.VersionResult
 		err = c.Call(ctx, "version", &verMap)
 		if err != nil {
-			w.log.Errorf("dcrwallet.Version error (wallet=%s): %v", c.String(), err)
+			w.log.Errorf("exccwallet.Version error (wallet=%s): %v", c.String(), err)
 			failedConnections = append(failedConnections, connect.addr)
 			connect.Close()
 			continue
 		}
 
-		ver, exists := verMap["dcrwalletjsonrpcapi"]
+		ver, exists := verMap["exccwalletjsonrpcapi"]
 		if !exists {
-			w.log.Errorf("dcrwallet.Version response missing 'dcrwalletjsonrpcapi' (wallet=%s)",
+			w.log.Errorf("exccwallet.Version response missing 'exccwalletjsonrpcapi' (wallet=%s)",
 				c.String())
 			failedConnections = append(failedConnections, connect.addr)
 			connect.Close()
@@ -98,7 +98,7 @@ func (w *WalletConnect) Clients() ([]*WalletRPC, []string) {
 
 		sVer := semver{ver.Major, ver.Minor, ver.Patch}
 		if !semverCompatible(requiredWalletVersion, sVer) {
-			w.log.Errorf("dcrwallet has incompatible JSON-RPC version (wallet=%s): got %s, expected %s",
+			w.log.Errorf("exccwallet has incompatible JSON-RPC version (wallet=%s): got %s, expected %s",
 				c.String(), sVer, requiredWalletVersion)
 			failedConnections = append(failedConnections, connect.addr)
 			connect.Close()
@@ -109,13 +109,13 @@ func (w *WalletConnect) Clients() ([]*WalletRPC, []string) {
 		var netID wire.CurrencyNet
 		err = c.Call(ctx, "getcurrentnet", &netID)
 		if err != nil {
-			w.log.Errorf("dcrwallet.GetCurrentNet error (wallet=%s): %v", c.String(), err)
+			w.log.Errorf("exccwallet.GetCurrentNet error (wallet=%s): %v", c.String(), err)
 			failedConnections = append(failedConnections, connect.addr)
 			connect.Close()
 			continue
 		}
 		if netID != w.params.Net {
-			w.log.Errorf("dcrwallet on wrong network (wallet=%s): running on %s, expected %s",
+			w.log.Errorf("exccwallet on wrong network (wallet=%s): running on %s, expected %s",
 				c.String(), netID, w.params.Net)
 			failedConnections = append(failedConnections, connect.addr)
 			connect.Close()
@@ -126,7 +126,7 @@ func (w *WalletConnect) Clients() ([]*WalletRPC, []string) {
 		walletRPC := &WalletRPC{c, ctx}
 		walletInfo, err := walletRPC.WalletInfo()
 		if err != nil {
-			w.log.Errorf("dcrwallet.WalletInfo error (wallet=%s): %v", c.String(), err)
+			w.log.Errorf("exccwallet.WalletInfo error (wallet=%s): %v", c.String(), err)
 			failedConnections = append(failedConnections, connect.addr)
 			connect.Close()
 			continue

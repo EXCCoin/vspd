@@ -61,10 +61,10 @@ func run() int {
 	var dcrdata *dcrdataClient
 	var params *chaincfg.Params
 	if cfg.Testnet {
-		dcrdata = &dcrdataClient{URL: "https://testnet.dcrdata.org"}
+		dcrdata = &dcrdataClient{URL: "https://testnet-explorer.excc.co"}
 		params = chaincfg.TestNet3Params()
 	} else {
-		dcrdata = &dcrdataClient{URL: "https://explorer.dcrdata.org"}
+		dcrdata = &dcrdataClient{URL: "https://explorer.excc.co"}
 		params = chaincfg.MainNetParams()
 	}
 

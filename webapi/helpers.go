@@ -187,7 +187,7 @@ func canTicketVote(rawTx *dcrdtypes.TxRawResult, dcrdClient Node, netParams *cha
 	// If ticket is currently live, it will be able to vote in future.
 	live, err := dcrdClient.ExistsLiveTicket(rawTx.Txid)
 	if err != nil {
-		return false, fmt.Errorf("dcrd.ExistsLiveTicket error: %w", err)
+		return false, fmt.Errorf("exccd.ExistsLiveTicket error: %w", err)
 	}
 
 	return live, nil

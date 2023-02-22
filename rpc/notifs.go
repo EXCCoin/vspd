@@ -27,7 +27,7 @@ func (n *blockConnectedHandler) Notify(method string, msg json.RawMessage) error
 
 	header, err := parseBlockConnected(msg)
 	if err != nil {
-		n.log.Errorf("Failed to parse dcrd block notification: %v", err)
+		n.log.Errorf("Failed to parse exccd block notification: %v", err)
 		return nil
 	}
 

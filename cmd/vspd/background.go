@@ -66,7 +66,7 @@ func blockConnected(dcrdRPC rpc.DcrdConnect, walletRPC rpc.WalletConnect, db *da
 						funcName, ticket.Hash, err)
 				}
 			} else {
-				log.Errorf("%s: dcrd.GetRawTransaction for ticket failed (ticketHash=%s): %v",
+				log.Errorf("%s: exccd.GetRawTransaction for ticket failed (ticketHash=%s): %v",
 					funcName, ticket.Hash, err)
 			}
 
@@ -97,7 +97,7 @@ func blockConnected(dcrdRPC rpc.DcrdConnect, walletRPC rpc.WalletConnect, db *da
 	for _, ticket := range pending {
 		err = dcrdClient.SendRawTransaction(ticket.FeeTxHex)
 		if err != nil {
-			log.Errorf("%s: dcrd.SendRawTransaction for fee tx failed (ticketHash=%s): %v",
+			log.Errorf("%s: exccd.SendRawTransaction for fee tx failed (ticketHash=%s): %v",
 				funcName, ticket.Hash, err)
 			ticket.FeeTxStatus = database.FeeError
 		} else {
@@ -133,7 +133,7 @@ func blockConnected(dcrdRPC rpc.DcrdConnect, walletRPC rpc.WalletConnect, db *da
 	for _, ticket := range unconfirmedFees {
 		feeTx, err := dcrdClient.GetRawTransaction(ticket.FeeTxHash)
 		if err != nil {
-			log.Errorf("%s: dcrd.GetRawTransaction for fee tx failed (feeTxHash=%s, ticketHash=%s): %v",
+			log.Errorf("%s: exccd.GetRawTransaction for fee tx failed (feeTxHash=%s, ticketHash=%s): %v",
 				funcName, ticket.FeeTxHash, ticket.Hash, err)
 
 			ticket.FeeTxStatus = database.FeeError
@@ -163,14 +163,14 @@ func blockConnected(dcrdRPC rpc.DcrdConnect, walletRPC rpc.WalletConnect, db *da
 
 			rawTicket, err := dcrdClient.GetRawTransaction(ticket.Hash)
 			if err != nil {
-				log.Errorf("%s: dcrd.GetRawTransaction for ticket failed (ticketHash=%s): %v",
+				log.Errorf("%s: exccd.GetRawTransaction for ticket failed (ticketHash=%s): %v",
 					funcName, ticket.Hash, err)
 				continue
 			}
 			for _, walletClient := range walletClients {
 				err = walletClient.AddTicketForVoting(ticket.VotingWIF, rawTicket.BlockHash, rawTicket.Hex)
 				if err != nil {
-					log.Errorf("%s: dcrwallet.AddTicketForVoting error (wallet=%s, ticketHash=%s): %v",
+					log.Errorf("%s: exccwallet.AddTicketForVoting error (wallet=%s, ticketHash=%s): %v",
 						funcName, walletClient.String(), ticket.Hash, err)
 					continue
 				}
@@ -189,7 +189,7 @@ func blockConnected(dcrdRPC rpc.DcrdConnect, walletRPC rpc.WalletConnect, db *da
 									funcName, ticket.Hash, err)
 							}
 						} else {
-							log.Errorf("%s: dcrwallet.SetVoteChoice error (wallet=%s, ticketHash=%s): %v",
+							log.Errorf("%s: exccwallet.SetVoteChoice error (wallet=%s, ticketHash=%s): %v",
 								funcName, walletClient.String(), ticket.Hash, err)
 						}
 					}
@@ -199,7 +199,7 @@ func blockConnected(dcrdRPC rpc.DcrdConnect, walletRPC rpc.WalletConnect, db *da
 				for tspend, policy := range ticket.TSpendPolicy {
 					err = walletClient.SetTSpendPolicy(tspend, policy, ticket.Hash)
 					if err != nil {
-						log.Errorf("%s: dcrwallet.SetTSpendPolicy failed (wallet=%s, ticketHash=%s): %v",
+						log.Errorf("%s: exccwallet.SetTSpendPolicy failed (wallet=%s, ticketHash=%s): %v",
 							funcName, walletClient.String(), ticket.Hash, err)
 					}
 				}
@@ -208,7 +208,7 @@ func blockConnected(dcrdRPC rpc.DcrdConnect, walletRPC rpc.WalletConnect, db *da
 				for key, policy := range ticket.TreasuryPolicy {
 					err = walletClient.SetTreasuryPolicy(key, policy, ticket.Hash)
 					if err != nil {
-						log.Errorf("%s: dcrwallet.SetTreasuryPolicy failed (wallet=%s, ticketHash=%s): %v",
+						log.Errorf("%s: exccwallet.SetTreasuryPolicy failed (wallet=%s, ticketHash=%s): %v",
 							funcName, walletClient.String(), ticket.Hash, err)
 					}
 				}
@@ -243,7 +243,7 @@ func blockConnected(dcrdRPC rpc.DcrdConnect, walletRPC rpc.WalletConnect, db *da
 
 		ticketInfo, err := walletClient.TicketInfo(oldestHeight)
 		if err != nil {
-			log.Errorf("%s: dcrwallet.TicketInfo failed (startHeight=%d, wallet=%s): %v",
+			log.Errorf("%s: exccwallet.TicketInfo failed (startHeight=%d, wallet=%s): %v",
 				funcName, oldestHeight, walletClient.String(), err)
 			continue
 		}
@@ -326,7 +326,7 @@ func checkWalletConsistency(dcrdRPC rpc.DcrdConnect, walletRPC rpc.WalletConnect
 		// Get all tickets the wallet is aware of.
 		walletTickets, err := walletClient.TicketInfo(oldestHeight)
 		if err != nil {
-			log.Errorf("%s: dcrwallet.TicketInfo failed (startHeight=%d, wallet=%s): %v",
+			log.Errorf("%s: exccwallet.TicketInfo failed (startHeight=%d, wallet=%s): %v",
 				funcName, oldestHeight, walletClient.String(), err)
 			continue
 		}
@@ -347,13 +347,13 @@ func checkWalletConsistency(dcrdRPC rpc.DcrdConnect, walletRPC rpc.WalletConnect
 
 			rawTicket, err := dcrdClient.GetRawTransaction(dbTicket.Hash)
 			if err != nil {
-				log.Errorf("%s: dcrd.GetRawTransaction error: %v", funcName, err)
+				log.Errorf("%s: exccd.GetRawTransaction error: %v", funcName, err)
 				continue
 			}
 
 			err = walletClient.AddTicketForVoting(dbTicket.VotingWIF, rawTicket.BlockHash, rawTicket.Hex)
 			if err != nil {
-				log.Errorf("%s: dcrwallet.AddTicketForVoting error (wallet=%s, ticketHash=%s): %v",
+				log.Errorf("%s: exccwallet.AddTicketForVoting error (wallet=%s, ticketHash=%s): %v",
 					funcName, walletClient.String(), dbTicket.Hash, err)
 				continue
 			}
@@ -370,7 +370,7 @@ func checkWalletConsistency(dcrdRPC rpc.DcrdConnect, walletRPC rpc.WalletConnect
 				funcName, walletClient.String(), minHeight)
 			err = walletClient.RescanFrom(minHeight)
 			if err != nil {
-				log.Errorf("%s: dcrwallet.RescanFrom failed (wallet=%s): %v",
+				log.Errorf("%s: exccwallet.RescanFrom failed (wallet=%s): %v",
 					funcName, walletClient.String(), err)
 				continue
 			}
@@ -384,7 +384,7 @@ func checkWalletConsistency(dcrdRPC rpc.DcrdConnect, walletRPC rpc.WalletConnect
 		// Get all tickets the wallet is aware of.
 		walletTickets, err := walletClient.TicketInfo(oldestHeight)
 		if err != nil {
-			log.Errorf("%s: dcrwallet.TicketInfo failed (startHeight=%d, wallet=%s): %v",
+			log.Errorf("%s: exccwallet.TicketInfo failed (startHeight=%d, wallet=%s): %v",
 				funcName, oldestHeight, walletClient.String(), err)
 			continue
 		}
@@ -430,7 +430,7 @@ func checkWalletConsistency(dcrdRPC rpc.DcrdConnect, walletRPC rpc.WalletConnect
 								funcName, dbTicket.Hash, err)
 						}
 					} else {
-						log.Errorf("%s: dcrwallet.SetVoteChoice error (wallet=%s, ticketHash=%s): %v",
+						log.Errorf("%s: exccwallet.SetVoteChoice error (wallet=%s, ticketHash=%s): %v",
 							funcName, walletClient.String(), dbTicket.Hash, err)
 					}
 				}

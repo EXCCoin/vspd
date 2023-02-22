@@ -132,7 +132,7 @@ func run() int {
 				// Ensure dcrd client is still connected.
 				_, _, err := dcrd.Client()
 				if err != nil {
-					log.Errorf("dcrd connect error: %v", err)
+					log.Errorf("exccd connect error: %v", err)
 				}
 			}
 		}

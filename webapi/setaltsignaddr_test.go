@@ -155,7 +155,7 @@ func TestSetAltSignAddress(t *testing.T) {
 		vspClosed: true,
 		wantCode:  http.StatusBadRequest,
 	}, {
-		name:          "dcrd client error",
+		name:          "exccd client error",
 		dcrdClientErr: true,
 		wantCode:      http.StatusInternalServerError,
 	}, {
@@ -172,14 +172,14 @@ func TestSetAltSignAddress(t *testing.T) {
 		addr:     "Tsn4pQV6i5HQz53cWM8Y4HkqnmY2o7qm4bz",
 		wantCode: http.StatusBadRequest,
 	}, {
-		name: "getRawTransaction error from dcrd client",
+		name: "getRawTransaction error from exccd client",
 		addr: testAddr,
 		node: &testNode{
 			getRawTransactionErr: errors.New("getRawTransaction error"),
 		},
 		wantCode: http.StatusInternalServerError,
 	}, {
-		name: "existsLiveTicket error from dcrd client",
+		name: "existsLiveTicket error from exccd client",
 		addr: testAddr,
 		node: &testNode{
 			getRawTransaction: &dcrdtypes.TxRawResult{

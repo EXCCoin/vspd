@@ -34,7 +34,7 @@ func (s *Server) setAltSignAddr(c *gin.Context) {
 	dcrdClient := c.MustGet(dcrdKey).(Node)
 	dcrdErr := c.MustGet(dcrdErrorKey)
 	if dcrdErr != nil {
-		s.log.Errorf("%s: Could not get dcrd client: %v", funcName, dcrdErr.(error))
+		s.log.Errorf("%s: Could not get exccd client: %v", funcName, dcrdErr.(error))
 		s.sendError(types.ErrInternalError, c)
 		return
 	}
@@ -84,7 +84,7 @@ func (s *Server) setAltSignAddr(c *gin.Context) {
 	// Get ticket details.
 	rawTicket, err := dcrdClient.GetRawTransaction(ticketHash)
 	if err != nil {
-		s.log.Errorf("%s: dcrd.GetRawTransaction for ticket failed (ticketHash=%s): %v", funcName, ticketHash, err)
+		s.log.Errorf("%s: exccd.GetRawTransaction for ticket failed (ticketHash=%s): %v", funcName, ticketHash, err)
 		s.sendError(types.ErrInternalError, c)
 		return
 	}

@@ -53,7 +53,7 @@ func (s *Server) dcrdStatus(c *gin.Context) DcrdStatus {
 	dcrdClient := c.MustGet(dcrdKey).(*rpc.DcrdRPC)
 	dcrdErr := c.MustGet(dcrdErrorKey)
 	if dcrdErr != nil {
-		s.log.Errorf("Could not get dcrd client: %v", dcrdErr.(error))
+		s.log.Errorf("Could not get exccd client: %v", dcrdErr.(error))
 		return status
 	}
 
@@ -61,7 +61,7 @@ func (s *Server) dcrdStatus(c *gin.Context) DcrdStatus {
 
 	bestBlock, err := dcrdClient.GetBestBlockHeader()
 	if err != nil {
-		s.log.Errorf("Could not get dcrd best block header: %v", err)
+		s.log.Errorf("Could not get exccd best block header: %v", err)
 		status.BestBlockError = true
 		return status
 	}
@@ -81,7 +81,7 @@ func (s *Server) walletStatus(c *gin.Context) map[string]WalletStatus {
 
 		walletInfo, err := v.WalletInfo()
 		if err != nil {
-			s.log.Errorf("dcrwallet.WalletInfo error (wallet=%s): %v", v.String(), err)
+			s.log.Errorf("exccwallet.WalletInfo error (wallet=%s): %v", v.String(), err)
 			ws.InfoError = true
 		} else {
 			ws.DaemonConnected = walletInfo.DaemonConnected
@@ -92,7 +92,7 @@ func (s *Server) walletStatus(c *gin.Context) map[string]WalletStatus {
 
 		height, err := v.GetBestBlockHeight()
 		if err != nil {
-			s.log.Errorf("dcrwallet.GetBestBlockHeight error (wallet=%s): %v", v.String(), err)
+			s.log.Errorf("exccwallet.GetBestBlockHeight error (wallet=%s): %v", v.String(), err)
 			ws.BestBlockError = true
 		} else {
 			ws.BestBlockHeight = height
@@ -136,7 +136,7 @@ func (s *Server) statusJSON(c *gin.Context) {
 
 	c.AbortWithStatusJSON(httpStatus, gin.H{
 		"wallets": wallets,
-		"dcrd":    dcrd,
+		"dcrd":   dcrd,
 	})
 }
 

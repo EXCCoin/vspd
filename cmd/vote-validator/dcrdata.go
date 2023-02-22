@@ -69,7 +69,7 @@ func (d *dcrdataClient) txns(txnHashes []string, spends bool) ([]tx, error) {
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("dcrdata response: %v", resp.Status)
+		return nil, fmt.Errorf("exccdata response: %v", resp.Status)
 	}
 
 	body, err := io.ReadAll(resp.Body)

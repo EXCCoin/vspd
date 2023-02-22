@@ -65,7 +65,7 @@ func (d *DcrdConnect) BlockConnectedHandler(blockConnected chan *wire.BlockHeade
 
 func (d *DcrdConnect) Close() {
 	d.client.Close()
-	d.log.Debug("dcrd client closed")
+	d.log.Debug("exccd client closed")
 }
 
 // Client creates a new DcrdRPC client instance. Returns an error if dialing
@@ -74,7 +74,7 @@ func (d *DcrdConnect) Client() (*DcrdRPC, string, error) {
 	ctx := context.TODO()
 	c, newConnection, err := d.client.dial(ctx)
 	if err != nil {
-		return nil, d.client.addr, fmt.Errorf("dcrd dial error: %w", err)
+		return nil, d.client.addr, fmt.Errorf("exccd dial error: %w", err)
 	}
 
 	// If this is a reused connection, we don't need to validate the dcrd config
@@ -88,19 +88,19 @@ func (d *DcrdConnect) Client() (*DcrdRPC, string, error) {
 	err = c.Call(ctx, "version", &verMap)
 	if err != nil {
 		d.client.Close()
-		return nil, d.client.addr, fmt.Errorf("dcrd version check failed: %w", err)
+		return nil, d.client.addr, fmt.Errorf("exccd version check failed: %w", err)
 	}
 
-	ver, exists := verMap["dcrdjsonrpcapi"]
+	ver, exists := verMap["exccdjsonrpcapi"]
 	if !exists {
 		d.client.Close()
-		return nil, d.client.addr, fmt.Errorf("dcrd version response missing 'dcrdjsonrpcapi'")
+		return nil, d.client.addr, fmt.Errorf("exccd version response missing 'exccdjsonrpcapi'")
 	}
 
 	sVer := semver{ver.Major, ver.Minor, ver.Patch}
 	if !semverCompatible(requiredDcrdVersion, sVer) {
 		d.client.Close()
-		return nil, d.client.addr, fmt.Errorf("dcrd has incompatible JSON-RPC version: got %s, expected %s",
+		return nil, d.client.addr, fmt.Errorf("exccd has incompatible JSON-RPC version: got %s, expected %s",
 			sVer, requiredDcrdVersion)
 	}
 
@@ -109,11 +109,11 @@ func (d *DcrdConnect) Client() (*DcrdRPC, string, error) {
 	err = c.Call(ctx, "getcurrentnet", &netID)
 	if err != nil {
 		d.client.Close()
-		return nil, d.client.addr, fmt.Errorf("dcrd getcurrentnet check failed: %w", err)
+		return nil, d.client.addr, fmt.Errorf("exccd getcurrentnet check failed: %w", err)
 	}
 	if netID != d.params.Net {
 		d.client.Close()
-		return nil, d.client.addr, fmt.Errorf("dcrd running on %s, expected %s", netID, d.params.Net)
+		return nil, d.client.addr, fmt.Errorf("exccd running on %s, expected %s", netID, d.params.Net)
 	}
 
 	// Verify dcrd has tx index enabled (required for getrawtransaction).
@@ -121,11 +121,11 @@ func (d *DcrdConnect) Client() (*DcrdRPC, string, error) {
 	err = c.Call(ctx, "getinfo", &info)
 	if err != nil {
 		d.client.Close()
-		return nil, d.client.addr, fmt.Errorf("dcrd getinfo check failed: %w", err)
+		return nil, d.client.addr, fmt.Errorf("exccd getinfo check failed: %w", err)
 	}
 	if !info.TxIndex {
 		d.client.Close()
-		return nil, d.client.addr, errors.New("dcrd does not have transaction index enabled (--txindex)")
+		return nil, d.client.addr, errors.New("exccd does not have transaction index enabled (--txindex)")
 	}
 
 	// Request blockconnected notifications.
@@ -136,7 +136,7 @@ func (d *DcrdConnect) Client() (*DcrdRPC, string, error) {
 		}
 	}
 
-	d.log.Debugf("Connected to dcrd")
+	d.log.Debugf("Connected to exccd")
 
 	return &DcrdRPC{c, ctx}, d.client.addr, nil
 }

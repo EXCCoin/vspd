@@ -23,7 +23,7 @@ var mainNetParams = netParams{
 	Params:              chaincfg.MainNetParams(),
 	dcrdRPCServerPort:   "9109",
 	walletRPCServerPort: "9110",
-	blockExplorerURL:    "https://dcrdata.decred.org",
+	blockExplorerURL:    "https://explorer.excc.co",
 	minWallets:          3,
 }
 
@@ -31,7 +31,7 @@ var testNet3Params = netParams{
 	Params:              chaincfg.TestNet3Params(),
 	dcrdRPCServerPort:   "19109",
 	walletRPCServerPort: "19110",
-	blockExplorerURL:    "https://testnet.dcrdata.org",
+	blockExplorerURL:    "https://testnet-explorer.excc.co",
 	minWallets:          1,
 }
 

@@ -53,14 +53,14 @@ type config struct {
 	LogsToKeep      int           `long:"logstokeep" ini-name:"logstokeep" description:"The number of rotated log files to keep."`
 	Network         string        `long:"network" ini-name:"network" description:"Decred network to use." choice:"testnet" choice:"mainnet" choice:"simnet"`
 	VSPFee          float64       `long:"vspfee" ini-name:"vspfee" description:"Fee percentage charged for VSP use. eg. 2.0 (2%), 0.5 (0.5%)."`
-	DcrdHost        string        `long:"dcrdhost" ini-name:"dcrdhost" description:"The ip:port to establish a JSON-RPC connection with dcrd. Should be the same host where vspd is running."`
-	DcrdUser        string        `long:"dcrduser" ini-name:"dcrduser" description:"Username for dcrd RPC connections."`
-	DcrdPass        string        `long:"dcrdpass" ini-name:"dcrdpass" description:"Password for dcrd RPC connections."`
-	DcrdCert        string        `long:"dcrdcert" ini-name:"dcrdcert" description:"The dcrd RPC certificate file."`
-	WalletHosts     string        `long:"wallethost" ini-name:"wallethost" description:"Comma separated list of ip:port to establish JSON-RPC connections with voting dcrwallet."`
-	WalletUsers     string        `long:"walletuser" ini-name:"walletuser" description:"Comma separated list of username for dcrwallet RPC connections."`
-	WalletPasswords string        `long:"walletpass" ini-name:"walletpass" description:"Comma separated list of password for dcrwallet RPC connections."`
-	WalletCerts     string        `long:"walletcert" ini-name:"walletcert" description:"Comma separated list of dcrwallet RPC certificate files."`
+	DcrdHost        string        `long:"exccdhost" ini-name:"exccdhost" description:"The ip:port to establish a JSON-RPC connection with exccd. Should be the same host where vspd is running."`
+	DcrdUser        string        `long:"exccduser" ini-name:"exccduser" description:"Username for exccd RPC connections."`
+	DcrdPass        string        `long:"exccdpass" ini-name:"exccdpass" description:"Password for exccd RPC connections."`
+	DcrdCert        string        `long:"exccdcert" ini-name:"exccdcert" description:"The exccd RPC certificate file."`
+	WalletHosts     string        `long:"wallethost" ini-name:"wallethost" description:"Comma separated list of ip:port to establish JSON-RPC connections with voting exccwallet."`
+	WalletUsers     string        `long:"walletuser" ini-name:"walletuser" description:"Comma separated list of username for exccwallet RPC connections."`
+	WalletPasswords string        `long:"walletpass" ini-name:"walletpass" description:"Comma separated list of password for exccwallet RPC connections."`
+	WalletCerts     string        `long:"walletcert" ini-name:"walletcert" description:"Comma separated list of exccwallet RPC certificate files."`
 	WebServerDebug  bool          `long:"webserverdebug" ini-name:"webserverdebug" description:"Enable web server debug mode (verbose logging to terminal and live-reloading templates)."`
 	SupportEmail    string        `long:"supportemail" ini-name:"supportemail" description:"Email address for users in need of support."`
 	BackupInterval  time.Duration `long:"backupinterval" ini-name:"backupinterval" description:"Time period between automatic database backups. Valid time units are {s,m,h}. Minimum 30 seconds."`
@@ -314,24 +314,24 @@ func loadConfig() (*config, error) {
 
 	// Ensure the dcrd RPC username is set.
 	if cfg.DcrdUser == "" {
-		return nil, errors.New("the dcrduser option is not set")
+		return nil, errors.New("the exccduser option is not set")
 	}
 
 	// Ensure the dcrd RPC password is set.
 	if cfg.DcrdPass == "" {
-		return nil, errors.New("the dcrdpass option is not set")
+		return nil, errors.New("the exccdpass option is not set")
 	}
 
 	// Ensure the dcrd RPC cert path is set.
 	if cfg.DcrdCert == "" {
-		return nil, errors.New("the dcrdcert option is not set")
+		return nil, errors.New("the exccdcert option is not set")
 	}
 
 	// Load dcrd RPC certificate.
 	cfg.DcrdCert = cleanAndExpandPath(cfg.DcrdCert)
 	cfg.dcrdCert, err = os.ReadFile(cfg.DcrdCert)
 	if err != nil {
-		return nil, fmt.Errorf("failed to read dcrd cert file: %w", err)
+		return nil, fmt.Errorf("failed to read exccd cert file: %w", err)
 	}
 
 	// Ensure the dcrwallet RPC username is set.
@@ -383,7 +383,7 @@ func loadConfig() (*config, error) {
 		certs[i] = cleanAndExpandPath(certs[i])
 		cfg.walletCerts[i], err = os.ReadFile(certs[i])
 		if err != nil {
-			return nil, fmt.Errorf("failed to read dcrwallet cert file: %w", err)
+			return nil, fmt.Errorf("failed to read exccwallet cert file: %w", err)
 		}
 	}
 

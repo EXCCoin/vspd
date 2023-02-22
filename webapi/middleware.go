@@ -177,7 +177,7 @@ func (s *Server) broadcastTicket(c *gin.Context) {
 	dcrdClient := c.MustGet(dcrdKey).(*rpc.DcrdRPC)
 	dcrdErr := c.MustGet(dcrdErrorKey)
 	if dcrdErr != nil {
-		s.log.Errorf("%s: Could not get dcrd client: %v", funcName, dcrdErr.(error))
+		s.log.Errorf("%s: Could not get exccd client: %v", funcName, dcrdErr.(error))
 		s.sendError(types.ErrInternalError, c)
 		return
 	}
@@ -210,14 +210,14 @@ func (s *Server) broadcastTicket(c *gin.Context) {
 		s.log.Debugf("%s: Broadcasting parent tx %s (ticketHash=%s)", funcName, parentHash, request.TicketHash)
 		err = dcrdClient.SendRawTransaction(request.ParentHex)
 		if err != nil {
-			s.log.Errorf("%s: dcrd.SendRawTransaction for parent tx failed (ticketHash=%s): %v",
+			s.log.Errorf("%s: exccd.SendRawTransaction for parent tx failed (ticketHash=%s): %v",
 				funcName, request.TicketHash, err)
 			s.sendError(types.ErrCannotBroadcastTicket, c)
 			return
 		}
 
 	} else {
-		s.log.Errorf("%s: dcrd.GetRawTransaction for ticket parent failed (ticketHash=%s): %v",
+		s.log.Errorf("%s: exccd.GetRawTransaction for ticket parent failed (ticketHash=%s): %v",
 			funcName, request.TicketHash, err)
 		s.sendError(types.ErrInternalError, c)
 		return
@@ -236,13 +236,13 @@ func (s *Server) broadcastTicket(c *gin.Context) {
 		s.log.Debugf("%s: Broadcasting ticket (ticketHash=%s)", funcName, request.TicketHash)
 		err = dcrdClient.SendRawTransaction(request.TicketHex)
 		if err != nil {
-			s.log.Errorf("%s: dcrd.SendRawTransaction for ticket failed (ticketHash=%s): %v",
+			s.log.Errorf("%s: exccd.SendRawTransaction for ticket failed (ticketHash=%s): %v",
 				funcName, request.TicketHash, err)
 			s.sendError(types.ErrCannotBroadcastTicket, c)
 			return
 		}
 	} else {
-		s.log.Errorf("%s: dcrd.GetRawTransaction for ticket failed (ticketHash=%s): %v",
+		s.log.Errorf("%s: exccd.GetRawTransaction for ticket failed (ticketHash=%s): %v",
 			funcName, request.TicketHash, err)
 		s.sendError(types.ErrInternalError, c)
 		return
@@ -309,7 +309,7 @@ func (s *Server) vspAuth(c *gin.Context) {
 		dcrdClient := c.MustGet(dcrdKey).(*rpc.DcrdRPC)
 		dcrdErr := c.MustGet(dcrdErrorKey)
 		if dcrdErr != nil {
-			s.log.Errorf("%s: Could not get dcrd client (clientIP=%s, ticketHash=%s): %v",
+			s.log.Errorf("%s: Could not get exccd client (clientIP=%s, ticketHash=%s): %v",
 				funcName, c.ClientIP(), hash, dcrdErr.(error))
 			s.sendError(types.ErrInternalError, c)
 			return
@@ -317,7 +317,7 @@ func (s *Server) vspAuth(c *gin.Context) {
 
 		rawTx, err := dcrdClient.GetRawTransaction(hash)
 		if err != nil {
-			s.log.Errorf("%s: dcrd.GetRawTransaction for ticket failed (clientIP=%s, ticketHash=%s): %v",
+			s.log.Errorf("%s: exccd.GetRawTransaction for ticket failed (clientIP=%s, ticketHash=%s): %v",
 				funcName, c.ClientIP(), hash, err)
 			s.sendError(types.ErrInternalError, c)
 			return

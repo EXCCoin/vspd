@@ -431,7 +431,7 @@ func (vdb *VspDatabase) CheckIntegrity(dcrd rpc.DcrdConnect) error {
 	for _, ticket := range missing {
 		tktTx, err := dcrdClient.GetRawTransaction(ticket.Hash)
 		if err != nil {
-			return fmt.Errorf("dcrd.GetRawTransaction error: %w", err)
+			return fmt.Errorf("exccd.GetRawTransaction error: %w", err)
 		}
 		ticket.PurchaseHeight = tktTx.BlockHeight
 		err = vdb.UpdateTicket(ticket)
