@@ -10,7 +10,6 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/EXCCoin/exccd/blockchain/v4"
 	"github.com/EXCCoin/exccd/chaincfg/v3"
 	dcrdtypes "github.com/EXCCoin/exccd/rpc/jsonrpc/types/v3"
 	"github.com/EXCCoin/exccd/wire"
@@ -21,8 +20,6 @@ import (
 
 var (
 	requiredDcrdVersion = semver{Major: 7, Minor: 0, Patch: 0}
-
-	activeStatus = blockchain.ThresholdStateTuple{State: blockchain.ThresholdActive}.String()
 )
 
 // These error codes are defined in dcrd/dcrjson. They are copied here so we
@@ -176,20 +173,10 @@ func (c *DcrdRPC) SendRawTransaction(txHex string) error {
 
 // IsDCP0010Active uses getblockchaininfo RPC to determine if the DCP-0010
 // agenda has activated on the current network.
+// DCP0010 is also known as "change subsidy split" agenda. it is not activated
+// for EXCC and there is no plans to do so.
 func (c *DcrdRPC) IsDCP0010Active() (bool, error) {
-	var info dcrdtypes.GetBlockChainInfoResult
-	err := c.Call(c.ctx, "getblockchaininfo", &info)
-	if err != nil {
-		return false, err
-	}
-
-	agenda, ok := info.Deployments[chaincfg.VoteIDChangeSubsidySplit]
-	if !ok {
-		return false, fmt.Errorf("getblockchaininfo did not return agenda %q",
-			chaincfg.VoteIDChangeSubsidySplit)
-	}
-
-	return agenda.Status == activeStatus, nil
+	return false, nil
 }
 
 // NotifyBlocks uses notifyblocks RPC to request new block notifications from dcrd.
