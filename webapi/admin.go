@@ -136,7 +136,7 @@ func (s *Server) statusJSON(c *gin.Context) {
 
 	c.AbortWithStatusJSON(httpStatus, gin.H{
 		"wallets": wallets,
-		"dcrd":   dcrd,
+		"dcrd":    dcrd,
 	})
 }
 

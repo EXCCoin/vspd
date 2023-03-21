@@ -184,7 +184,7 @@ func (s *Server) broadcastTicket(c *gin.Context) {
 
 	_, err = dcrdClient.GetRawTransaction(parentHash.String())
 	var e *wsrpc.Error
-	if err == nil {
+	if err == nil { //nolint:revive // ignore empty-block linter error
 		// No error means dcrd already knows the parent tx, nothing to do.
 	} else if errors.As(err, &e) && e.Code == rpc.ErrNoTxInfo {
 		// ErrNoTxInfo means local dcrd is not aware of the parent. We have
