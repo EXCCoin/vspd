@@ -3,18 +3,24 @@ html, body {
 }
 body {
     overflow-y: overlay;
-    background-color: #F3F5F6;
+    background-color: #060b1e;
     color: #3D5873;
     display: flex;
     flex-direction: column;
 }
 
 .navbar {
-    background-color: #F9FAFA;
+    background-color: #000000;
 }
 
 .navbar a {
     text-decoration: none;
+}
+
+.alert-warning {
+    color: #fefefe;
+    background-color: #060b1e;
+    border: 1px solid rgba(255,255,255,0.4);
 }
 
 .page-content {
@@ -23,18 +29,17 @@ body {
 
 .logo--logo {
     padding-right: 5px;
-    border-right: 0.3px solid #091440;
+    border-right: 1px solid rgba(255,255,255,0.8);
 }
 .logo--text {
     padding: 0 5px;
     font-size: 15px;
     line-height: 1;
-    color: #091440;
+    color: #ffffff;
 }
 
 .vsp-overview {
-    color: #8997A5;
-    background-color: #ffffff;
+    color: #fefefe;
     font-size: 16px;
 }
 
@@ -45,12 +50,12 @@ body {
 
 .vsp-stats .stat-title {
     font-size: 14px;
-    color: #596D81;
+    color: rgba(255,255,255,0.8);
 }
 
 .vsp-stats .stat-value {
     font-size: 24px;
-    color: #091440;
+    color: #rgba(255,255,255,0.9);
 }
 
 .vsp-stats .stat-value .text-muted{
@@ -65,7 +70,7 @@ body {
 footer {
     flex-shrink: 0;
     font-size: 0.8rem;
-    background-color: #091440;
+    background-color: #000000;
     color: #8997a5;
     width: 100%;
 }
@@ -101,15 +106,15 @@ footer .code {
 }
 
 .block__content h1 {
-    color: #091440;
+    color: #fefefe;
     font-size: 24px;
     padding-bottom: 10px;
 }
 
 .block__content {
-    background-color: #ffffff;
-    padding: 20px 30px; 
-    color: #3D5873;
+    background-color: rgba(255,255,255,0.1);
+    padding: 20px 30px;
+    color: rgba(255,255,255,0.6);
     line-height: 1.4;
 }
 
@@ -128,7 +133,7 @@ footer .code {
     font-family: "vspd";
     vertical-align: top;
     font-weight: normal;
-    background-color: #edeff1;
+    background-color: rgba(255,255,255,0.1);
 }
 
 
@@ -225,7 +230,7 @@ footer .code {
 .tabset > input:nth-child(5):focus ~ ul li:nth-child(5) label,
 .tabset > input:nth-child(5):hover ~ ul li:nth-child(5) label {
     cursor: pointer;
-    color: #091440;
+    color: #fefefe;
 }
 
 .tabset > input:nth-child(1):checked ~ ul li:nth-child(1) label,
@@ -234,7 +239,7 @@ footer .code {
 .tabset > input:nth-child(4):checked ~ ul li:nth-child(4) label,
 .tabset > input:nth-child(5):checked ~ ul li:nth-child(5) label {
     border-bottom: 5px solid #2ed8a3;
-    color: #091440;
+    color: #fefefe;
     cursor: default;
 }
 

@@ -2,7 +2,7 @@
 
 This guide is deliberately written at a high level and with minimal details
 because it is assumed that VSP operators will already have a level of
-familiarity with Decred software and a level of sysadmin experience.
+familiarity with ExchangeCoin software and a level of sysadmin experience.
 
 ```mermaid
 %%{init:{
@@ -20,22 +20,22 @@ graph LR
 
 subgraph Front-end Server
     nginx(nginx) --> vspd(vspd)
-    vspd --> dcrd0(dcrd)
+    vspd --> exccd0(exccd)
 end
 
 subgraph voting3 [Voting Server 3]
-    dcrwallet3(dcrwallet) --> dcrd3(dcrd)
+    exccwallet3(exccwallet) --> exccd3(exccd)
 end
 
 subgraph voting2 [Voting Server 2]
-    dcrwallet2(dcrwallet) --> dcrd2(dcrd)
+    exccwallet2(exccwallet) --> exccd2(exccd)
 end
 
 subgraph voting1 [Voting Server 1]
-    dcrwallet1(dcrwallet) --> dcrd1(dcrd)
+    exccwallet1(exccwallet) --> exccd1(exccd)
 end
 
-vspd ----> dcrwallet1 & dcrwallet2 & dcrwallet3
+vspd ----> exccwallet1 & exccwallet2 & exccwallet3
 web(Internet<br />Traffic) ---> nginx
 ```
 
@@ -48,14 +48,14 @@ build vspd from source.
 
 When deploying vspd to production, always build all binaries from release
 branches.
-Neither vspd nor its dependencies (dcrd/dcrwallet) should be built from master
+Neither vspd nor its dependencies (exccd/exccwallet) should be built from master
 when handling mainnet tickets.
 
 ### Fee wallet
 
 A wallet should be created to collect VSP fees. Ideally this would be a cold
 wallet which is not used for any other purpose, and it should be completely
-separate from the vspd infrastructure. The dcrwallet `getmasterpubkey` RPC
+separate from the vspd infrastructure. The exccwallet `getmasterpubkey` RPC
 should be used to export an extended public (xpub) key from one of the wallet
 accounts. This xpub key will be provided to vspd via config, and vspd will use
 it to derive a new addresses for receiving fee payments.
@@ -66,15 +66,15 @@ A vspd deployment should have a minimum of three remote voting wallets. The
 servers hosting these wallets should ideally be in geographically separate
 locations.
 
-Each voting server should be running an instance of dcrd and dcrwallet. The
+Each voting server should be running an instance of exccd and exccwallet. The
 wallet on these servers should be completely empty and not used for any other
-purpose. dcrwallet should be permanently unlocked and have voting enabled
-(`--enablevoting`). dcrwallet is also required to have the manual tickets
-option (`--manualtickets`) enabled which disables dcrwallet adding tickets
+purpose. exccwallet should be permanently unlocked and have voting enabled
+(`--enablevoting`). exccwallet is also required to have the manual tickets
+option (`--manualtickets`) enabled which disables exccwallet adding tickets
 arriving over the network.  Without this option set, a user could reuse
 voting addresses the VSP's voting wallets already have private keys for,
 resulting in the VSP voting tickets without a fee paid. vspd on the
-front-end server must be able to reach each instance of dcrwallet over RPC.
+front-end server must be able to reach each instance of exccwallet over RPC.
 
 ## Front-end Server
 
@@ -82,13 +82,13 @@ The front-end server is where vspd will be running. A webserver (eg. nginx)
 should be configured with SSL and used to proxy requests from the internet to
 vspd. **Do not run a voting wallet on your webserver.**
 
-1. Start an instance of dcrd on this server with transaction index enabled
-   (`--txindex`). dcrd is used for fishing ticket details out of the chain, for
+1. Start an instance of exccd on this server with transaction index enabled
+   (`--txindex`). exccd is used for fishing ticket details out of the chain, for
    receiving `blockconnected` notifications, and for broadcasting and checking
    the status of fee transactions.
 
 1. Run `vspd` with no arguments to write a default config file. Modify the
-   config file to set your dcrd and dcrwallet connection details, and any other
+   config file to set your exccd and exccwallet connection details, and any other
    required customization.
 
 1. A vspd database must be initialized before vpsd can be started. To do this,
@@ -101,22 +101,22 @@ vspd. **Do not run a voting wallet on your webserver.**
 1. Once the database is initialized, vspd can be started for normal operation by
    running it without the `--feexpub` flag.
 
-## Deploying alongside dcrstakepool
+## Deploying alongside exccstakepool
 
 It is possible to run vspd on the same infrastructure as an existing
-dcrstakepool deployment.
+exccstakepool deployment.
 
 - On the voting servers...
-  - The existing dcrd instance requires no changes.
-  - Create a new instance of dcrwallet listening for RPC connections on a
+  - The existing exccd instance requires no changes.
+  - Create a new instance of exccwallet listening for RPC connections on a
     different port. Ensure the new wallet is unlocked and voting is enabled
-    (dcrstakepool wallet should still have voting disabled).
+    (exccstakepool wallet should still have voting disabled).
 
 - On the front-end server...
-  - Run an instance of dcrd with txindex enabled.
+  - Run an instance of exccd with txindex enabled.
   - Run the vspd binary
     - Configure webserver to proxy requests from the internet to vspd.
-    - Configure vspd to use the newly created dcrwallet instances.
+    - Configure vspd to use the newly created exccwallet instances.
   - Web requests for `/api/v3` should be redirected to vspd.
 
 ## Monitoring
@@ -126,18 +126,18 @@ to be operating properly. An ideal solution would monitor the following:
 
 - **Front-end host:**
 
-  - vspd and dcrd processes are running.
-  - No errors in vspd or dcrd logs.
-  - Both dcrd and vspd are keeping up to date with new blocks.
+  - vspd and exccd processes are running.
+  - No errors in vspd or exccd logs.
+  - Both exccd and vspd are keeping up to date with new blocks.
   - Web front-end is accessible from the internet.
   - vspd `/admin/status` endpoint indicates no issues.
 
 - **Voting wallet hosts:**
 
-  - dcrwallet and dcrd processes are running.
-  - No errors in dcrwallet or dcrd logs.
-  - dcrwallet has voting enabled and is unlocked.
-  - Both dcrd and dcrwallet are keeping up to date with new blocks.
+  - exccwallet and exccd processes are running.
+  - No errors in exccwallet or exccd logs.
+  - exccwallet has voting enabled and is unlocked.
+  - Both exccd and exccwallet are keeping up to date with new blocks.
 
 ### Logs
 
@@ -164,7 +164,7 @@ $ curl --user admin:12345 --request GET http://localhost:8800/admin/status
 
 ```json
 {
-  "dcrd": {
+  "exccd": {
     "host": "wss://127.0.0.1:19109/ws",
     "connected": true,
     "bestblockerror": false,
@@ -222,8 +222,8 @@ from scratch. Simply place the database file into the vspd data directory and
 start vspd as normal. vspd will use the database to insert all necessary data
 into all of the voting wallets.
 
-## Listing on decred.org
+## Listing on excc.co
 
-The process for listing a new VSP on [decred.org](https://decred.org/vsp/), and
-consequently in Decrediton, is detailed at
-[docs.decred.org](https://docs.decred.org/advanced/operating-a-vsp/).
+The process for listing a new VSP on [excc.co](https://excc.co/vsp/), and
+consequently in Exilibrium, is detailed at
+[docs.excc.co](https://docs.excc.co/advanced/operating-a-vsp/).

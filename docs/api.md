@@ -24,7 +24,7 @@
 - The initial version of the vspd API is version 3. This is because the first
   version of the vspd API actually represents the third iteration of VSP APIs.
   The first and second iterations of VSP API were implemented by
-  [dcrstakepool](https://github.com/decred/dcrstakepool).
+  [exccstakepool](https://github.com/EXCCoin/exccstakepool).
 
 ## Expected usage
 
@@ -104,7 +104,7 @@ only be set once. Further requests to set a new address will be rejected.
 
 Request fee amount and address for a ticket. The fee amount is only valid until
 the expiration time has passed. The fee amount is an absolute value measured in
-DCR. Returns an error if the specified ticket is not currently immature or live.
+EXCC. Returns an error if the specified ticket is not currently immature or live.
 
 This call will return an error if a fee transaction has already been provided
 for the specified ticket.

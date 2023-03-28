@@ -6,7 +6,7 @@ is voting correctly according to user preferences.
 ## What it does
 
 1. Retrieve all voted tickets from the provided vspd database file.
-1. Retrieve vote info from dcrdata for every voted ticket.
+1. Retrieve vote info from exccdata for every voted ticket.
 1. For the n most recently voted tickets, compare the vote choices recorded
    on-chain to the vote choices set by the user.
 1. Write details of any discrepancies to a file for further investigation.

@@ -1,16 +1,16 @@
 # vspd
 
-[![Build Status](https://github.com/decred/vspd/workflows/Build%20and%20Test/badge.svg)](https://github.com/decred/vspd/actions)
+[![Build Status](https://github.com/EXCCoin/vspd/workflows/Build%20and%20Test/badge.svg)](https://github.com/EXCCoin/vspd/actions)
 [![ISC License](https://img.shields.io/badge/license-ISC-blue.svg)](http://copyfree.org)
-[![Go Report Card](https://goreportcard.com/badge/github.com/decred/vspd)](https://goreportcard.com/report/github.com/decred/vspd)
-[![Release](https://img.shields.io/github/release/decred/vspd.svg?style=flat-square)](https://github.com/decred/vspd/releases/latest)
+[![Go Report Card](https://goreportcard.com/badge/github.com/EXCCoin/vspd)](https://goreportcard.com/report/github.com/EXCCoin/vspd)
+[![Release](https://img.shields.io/github/release/EXCCoin/vspd.svg?style=flat-square)](https://github.com/EXCCoin/vspd/releases/latest)
 
 ## Overview
 
 <img src="./docs/img/stakey.png" align="right" />
 
 vspd is a from scratch implementation of a Voting Service Provider (VSP) for
-the Decred network.
+the ExchangeCoin network.
 
 A VSP running vspd can be used to vote on any ticket - tickets do not need to
 be purchased with any special conditions such as dedicated outputs for paying
@@ -65,7 +65,7 @@ information about deploying vspd, check out
 ### Test Harness
 
 A test harness is provided in `harness.sh`. The test harness uses tmux to start
-a testnet instance of dcrd, multiple dcrwallets, and finally vspd. Further
+a testnet instance of exccd, multiple exccwallets, and finally vspd. Further
 documentation can be found in [harness.sh](./harness.sh).
 
 ### Web server debug mode
@@ -79,7 +79,7 @@ The config option `--webserverdebug` will:
 
 ## Issue Tracker
 
-The [integrated GitHub issue tracker](https://github.com/decred/vspd/issues)
+The [integrated GitHub issue tracker](https://github.com/EXCCoin/vspd/issues)
 is used for this project.
 
 ## License
