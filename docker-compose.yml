@@ -1,0 +1,46 @@
+version: '3'
+services:
+
+  exccd:
+    image: exccco/exccd:latest
+    ports:
+      - 0.0.0.0:11999:11999 # p2p
+      - 127.0.0.1:19109:19109 # rpc
+    volumes:
+      - exccd-data:/data
+      - ./conf/exccd.conf:/app/exccd.conf
+      - ./certs/exccd.cert:/app/rpc.cert
+      - ./certs/exccd.key:/app/rpc.key
+    restart: on-failure
+
+  vspd:
+    image: exccco/vspd:latest
+    volumes:
+      - vspd-data:/data
+      - ./conf/vspd.conf:/app/vspd.conf
+      - ./certs/exccd.cert:/app/exccd.cert
+      - ./certs/exccwallet1.cert:/app/exccwallet1.cert
+      - ./certs/exccwallet2.cert:/app/exccwallet2.cert
+      - ./certs/exccwallet3.cert:/app/exccwallet3.cert
+    depends_on:
+      - exccd
+    ports:
+      - 8800:8800
+    restart: always
+
+  nginx:
+    image: nginx
+    ports:
+      - 0.0.0.0:443:443
+      - 0.0.0.0:80:80
+    volumes:
+      - ./conf/nginx.conf:/etc/nginx/nginx.conf
+      - ./certs/nginx.cert:/etc/nginx/nginx.crt
+      - ./certs/nginx.key:/etc/nginx/nginx.key
+    depends_on:
+      - vspd
+    restart: on-failure
+
+volumes:
+  exccd-data:
+  vspd-data:
